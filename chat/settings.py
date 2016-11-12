@@ -1,7 +1,6 @@
 import os
 import random
 import string
-import dj_database_url
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -17,7 +16,16 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+
+    'crispy_forms',
     'channels',
+    #accounts
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    #custom
     'chat',
 )
 
@@ -55,7 +63,13 @@ TEMPLATES = (
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(default="postgres:///channels-example", conn_max_age=500)
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'chatapp',
+        'USER': 'chatapp',
+        'PASSWORD': 'chatapp',
+        'HOST': 'localhost',
+    }
 }
 
 AUTH_PASSWORD_VALIDATORS = (
@@ -72,6 +86,21 @@ AUTH_PASSWORD_VALIDATORS = (
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 )
+
+AUTHENTICATION_BACKENDS = (
+
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+AUTH_USER_MODEL = 'chat.User'
+ACCOUNT_SIGNUP_FORM_CLASS = 'chat.forms.SignupForm'
+LOGIN_REDIRECT_URL = '/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
@@ -131,3 +160,6 @@ LOGGING = {
         },
     },
 }
+
+LANGUAGE_CHOICES = [('en', 'English'),
+                    ('bg', 'Bulgarian')]
