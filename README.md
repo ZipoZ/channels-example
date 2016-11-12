@@ -2,8 +2,7 @@ This a chat app for positive discussion between people with differing views.
 
 ## Running locally
 
-To run this app locally, you'll need Python, Postgres, and Redis. (On my Mac, I installed [Postgres.app](http://postgresapp.com/documentation/) and Redis from Homebrew (`brew install redis`).)
-
+To run this app locally, you'll need Python, Postgres, and Redis.
 Then, to run:
 
 - Install requirements: `pip install -r requirements.txt` (you almost certainly want to do this in a virtualenv).
